@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://integracion.coopeuch.cl/wstest/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="wstest"
+	targetNamespace="http://integracion.coopeuch.cl/wstest/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://integracion.coopeuch.cl/wstest/">
+			<xsd:element name="crearRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="userId" type="xsd:string" nillable="false" />
+						<xsd:element name="canalLlamada" type="xsd:string" nillable="false"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="crearResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="formato" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="codRespuesta" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="error" type="tns:Excepcion" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="actualizarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="userId" type="xsd:string" nillable="false" />
+						<xsd:element name="canalLlamada" type="xsd:string" nillable="false"/>
+						<xsd:element name="rut" type="xsd:string" nillable="false" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="actualizarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="formato" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="codRespuesta" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="error" type="tns:Excepcion" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="consultarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="userId" type="xsd:string" nillable="false" />
+						<xsd:element name="canalLlamada" type="xsd:string" nillable="false" />
+						<xsd:element name="cedula" type="xsd:string" nillable="false" />
+						<xsd:element name="nombre" type="xsd:string" nillable="false" />
+						<xsd:element name="salario" type="xsd:int" nillable="false" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="formato" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="cedula" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="nombre" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="salario" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="error" type="tns:Excepcion" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="Excepcion">
+				<xsd:sequence>
+					<xsd:element name="formato" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="identificador" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="correlativo" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="numeroErrores" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="errores" type="tns:Errores" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Errores">
+				<xsd:sequence>
+					<xsd:element name="detalleError" type="tns:DetalleError"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DetalleError">
+				<xsd:sequence>
+					<xsd:element name="codigo" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="origen" type="xsd:string" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="crearRequest">
+		<wsdl:part element="tns:crearRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="crearResponse">
+		<wsdl:part element="tns:crearResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="actualizarRequest">
+		<wsdl:part element="tns:actualizarRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="actualizarResponse">
+		<wsdl:part element="tns:actualizarResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarRequest">
+		<wsdl:part element="tns:consultarRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarResponse">
+		<wsdl:part element="tns:consultarResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="wstestSOAPPortType">
+		<wsdl:operation name="crear">
+			<wsdl:input message="tns:crearRequest" />
+			<wsdl:output message="tns:crearResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="actualizar">
+			<wsdl:input message="tns:actualizarRequest" />
+			<wsdl:output message="tns:actualizarResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultar">
+			<wsdl:input message="tns:consultarRequest" />
+			<wsdl:output message="tns:consultarResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="wstestSoapBinding" type="tns:wstestSOAPPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="crear">
+			<soap:operation
+				soapAction="http://integracion.coopeuch.cl/wstest/crear" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizar">
+			<soap:operation
+				soapAction="http://integracion.coopeuch.cl/wstest/actualizar" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultar">
+			<soap:operation
+				soapAction="http://integracion.coopeuch.cl/wstest/consultar" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="wstest">
+		<wsdl:port binding="tns:wstestSoapBinding" name="wstestPort">
+			<soap:address location="/wstest" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
